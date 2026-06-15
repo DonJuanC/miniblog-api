@@ -17,7 +17,9 @@ router.post("/", async (req, res) => {
   try {
     const { content, author_id } = req.body;
     if (!content || !author_id)
-      return res.status(400).json({ error: "content y author_id son requeridos" });
+      return res
+        .status(400)
+        .json({ error: "content y author_id son requeridos" });
     const comment = await service.create({
       content,
       post_id: req.params.id,

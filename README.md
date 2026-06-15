@@ -78,14 +78,14 @@ El archivo `openapi.yaml` en la raíz describe todos los endpoints. Puedes visua
 3. Conecta tu repositorio de GitHub
 4. En Variables del servicio API, agrega referencias al servicio PostgreSQL:
 
-| Variable | Valor |
-|----------|-------|
-| `DB_HOST` | `${{Postgres.PGHOST}}` |
-| `DB_PORT` | `${{Postgres.PGPORT}}` |
-| `DB_NAME` | `${{Postgres.PGDATABASE}}` |
-| `DB_USER` | `${{Postgres.PGUSER}}` |
+| Variable      | Valor                      |
+| ------------- | -------------------------- |
+| `DB_HOST`     | `${{Postgres.PGHOST}}`     |
+| `DB_PORT`     | `${{Postgres.PGPORT}}`     |
+| `DB_NAME`     | `${{Postgres.PGDATABASE}}` |
+| `DB_USER`     | `${{Postgres.PGUSER}}`     |
 | `DB_PASSWORD` | `${{Postgres.PGPASSWORD}}` |
-| `NODE_ENV` | `production` |
+| `NODE_ENV`    | `production`               |
 
 5. Railway despliega automáticamente en cada push a main
 6. Ejecutar setup y seed en la DB de Railway desde la pestaña **Console** del servicio PostgreSQL

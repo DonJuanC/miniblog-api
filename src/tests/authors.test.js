@@ -37,9 +37,7 @@ describe("Authors API", () => {
   });
 
   it("POST /authors - retorna 400 si falta email", async () => {
-    const res = await request(app)
-      .post("/authors")
-      .send({ name: "Sin Email" });
+    const res = await request(app).post("/authors").send({ name: "Sin Email" });
     expect(res.statusCode).toBe(400);
   });
 
