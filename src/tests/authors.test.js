@@ -46,3 +46,33 @@ describe("Authors API", () => {
     expect(res.statusCode).toBe(404);
   });
 });
+
+describe("Posts API", () => {
+  it("POST /posts - crea un post nuevo", async () => {
+    const res = await request(app).post("/posts").send({
+      title: "Test Post",
+      content: "Contenido de prueba",
+      author_id: 1,
+    });
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty("id");
+    expect(res.body).toHaveProperty("author_id", 1);
+  });
+
+  it("POST /posts - retorna 400 si falta title", async () => {
+    const res = await request(app).post("/posts").send({
+      content: "Sin title",
+      author_id: 1,
+    });
+    expect(res.statusCode).toBe(400);
+  });
+
+  it("POST /posts - retorna 400 si author_id no existe", async () => {
+    const res = await request(app).post("/posts").send({
+      title: "Post con autor fantasma",
+      content: "Contenido",
+      author_id: 99999,
+    });
+    expect(res.statusCode).toBe(400);
+  });
+});

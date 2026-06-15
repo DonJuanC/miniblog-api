@@ -44,6 +44,8 @@ router.post("/", async (req, res) => {
     const post = await service.create({ title, content, author_id });
     res.status(201).json(post);
   } catch (err) {
+    if (err.code === "23503")
+      return res.status(400).json({ error: "El author_id no existe" });
     res.status(500).json({ error: err.message });
   }
 });
