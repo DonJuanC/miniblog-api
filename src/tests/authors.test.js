@@ -35,4 +35,16 @@ describe("Authors API", () => {
     const res = await request(app).delete("/authors/99999");
     expect(res.statusCode).toBe(404);
   });
+
+  it("POST /authors - retorna 400 si falta email", async () => {
+    const res = await request(app)
+      .post("/authors")
+      .send({ name: "Sin Email" });
+    expect(res.statusCode).toBe(400);
+  });
+
+  it("GET /authors/:id - retorna 404 si no existe", async () => {
+    const res = await request(app).get("/authors/99999");
+    expect(res.statusCode).toBe(404);
+  });
 });

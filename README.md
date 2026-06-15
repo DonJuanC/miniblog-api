@@ -45,19 +45,19 @@ node index.js
 
 ## Endpoints
 
-| Método | Ruta | Descripción |
-|--------|------|-------------|
-| GET | /authors | Listar authors |
-| GET | /authors/:id | Obtener author |
-| POST | /authors | Crear author |
-| PUT | /authors/:id | Actualizar author |
-| DELETE | /authors/:id | Eliminar author |
-| GET | /posts | Listar posts |
-| GET | /posts/:id | Obtener post |
-| GET | /posts/author/:authorId | Posts de un author |
-| POST | /posts | Crear post |
-| PUT | /posts/:id | Actualizar post |
-| DELETE | /posts/:id | Eliminar post |
+| Método | Ruta                    | Descripción        |
+| ------ | ----------------------- | ------------------ |
+| GET    | /authors                | Listar authors     |
+| GET    | /authors/:id            | Obtener author     |
+| POST   | /authors                | Crear author       |
+| PUT    | /authors/:id            | Actualizar author  |
+| DELETE | /authors/:id            | Eliminar author    |
+| GET    | /posts                  | Listar posts       |
+| GET    | /posts/:id              | Obtener post       |
+| GET    | /posts/author/:authorId | Posts de un author |
+| POST   | /posts                  | Crear post         |
+| PUT    | /posts/:id              | Actualizar post    |
+| DELETE | /posts/:id              | Eliminar post      |
 
 ## Tests
 
@@ -78,6 +78,7 @@ El archivo `openapi.yaml` en la raíz describe todos los endpoints. Puedes visua
 5. Railway despliega automáticamente en cada push a main
 
 Variables de entorno en Railway:
+
 - `DB_HOST`: Internal URL del servicio PostgreSQL
 - `DB_PORT`: 5432
 - `DB_NAME`: railway (por defecto)
@@ -87,4 +88,4 @@ Variables de entorno en Railway:
 
 ## Uso de IA
 
-Este proyecto fue desarrollado con asistencia de Claude (Anthropic) como tutor técnico. Claude guió el desarrollo paso a paso — explicando conceptos, revisando código y señalando errores — sin ejecutar acciones directamente salvo cuando se le autorizó explícitamente. Los prompts utilizados cubrieron: diseño del schema SQL, estructura de rutas Express, conexión con pg Pool, arquitectura de servicios, configuración de jest/supertest y preparación para Railway.
+Este proyecto fue desarrollado con asistencia de Claude (Anthropic) como tutor técnico. Claude guió el desarrollo con un método de paso a paso — explicando conceptos, revisando código y señalando errores — sin ejecutar acciones directamente salvo cuando se le autorizó explícitamente. Los prompts utilizados cubrieron: diseño del schema SQL, estructura de rutas Express, conexión con pg Pool, arquitectura de servicios, configuración de jest/supertest y preparación para Railway.
