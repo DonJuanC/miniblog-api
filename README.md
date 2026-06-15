@@ -70,7 +70,12 @@ npm test
 
 ## Documentación OpenAPI
 
-El archivo `openapi.yaml` en la raíz describe todos los endpoints. Puedes visualizarlo en [editor.swagger.io](https://editor.swagger.io) pegando el contenido del archivo.
+El archivo `openapi.yaml` en la raíz describe todos los endpoints. Para visualizarlo e interactuar con la API en vivo:
+
+1. Abre [editor.swagger.io](https://editor.swagger.io)
+2. Borra el contenido por defecto y pega el contenido de `openapi.yaml`
+3. Selecciona el servidor **Producción (Railway)** en el dropdown
+4. Usa **Try it out → Execute** en cualquier endpoint para hacer requests reales
 
 ## Deploy en Railway
 
