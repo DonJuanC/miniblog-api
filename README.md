@@ -35,6 +35,7 @@ Crea las tablas y carga los datos iniciales:
 ```bash
 psql -U postgres -d miniblog -f src/db/setup.sql
 psql -U postgres -d miniblog -f src/db/seed.sql
+psql -U postgres -d miniblog -f src/db/comments_setup.sql
 ```
 
 Inicia el servidor:
@@ -58,6 +59,8 @@ node index.js
 | POST   | /posts                  | Crear post         |
 | PUT    | /posts/:id              | Actualizar post    |
 | DELETE | /posts/:id              | Eliminar post      |
+| GET    | /posts/:id/comments     | Listar comentarios |
+| POST   | /posts/:id/comments     | Crear comentario   |
 
 ## Tests
 

@@ -18,10 +18,10 @@ const getByAuthorId = async (authorId) => {
   return result.rows;
 };
 
-const create = async ({ title, content, authorId }) => {
+const create = async ({ title, content, author_id }) => {
   const result = await pool.query(
     "INSERT INTO posts (title, content, author_id) VALUES ($1, $2, $3) RETURNING *",
-    [title, content, authorId],
+    [title, content, author_id],
   );
   return result.rows[0];
 };
@@ -31,6 +31,7 @@ const update = async (id, { title, content, published }) => {
     "UPDATE posts SET title = COALESCE($1, title), content = COALESCE($2, content), published = COALESCE($3, published) WHERE id = $4 RETURNING *",
     [title, content, published, id],
   );
+  return result.rows[0];
 };
 
 const remove = async (id) => {

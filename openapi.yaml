@@ -183,3 +183,41 @@ paths:
       responses:
         "200":
           description: Lista de posts del author
+
+  /posts/{id}/comments:
+    get:
+      summary: Listar comentarios de un post
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Lista de comentarios
+    post:
+      summary: Crear un comentario en un post
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [content, author_id]
+              properties:
+                content:
+                  type: string
+                author_id:
+                  type: integer
+      responses:
+        "201":
+          description: Comentario creado
+        "400":
+          description: Datos inválidos
