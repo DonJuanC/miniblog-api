@@ -67,6 +67,46 @@ node index.js
 | GET    | /posts/:id/comments     | Listar comentarios |
 | POST   | /posts/:id/comments     | Crear comentario   |
 
+## Diagrama entidad-relación
+
+Versión también disponible en [Notion](https://app.notion.com/p/381745b6d1db81df8d71f91fb2d6285d).
+
+```mermaid
+erDiagram
+    AUTHORS ||--o{ POSTS : escribe
+    AUTHORS ||--o{ COMMENTS : escribe
+    POSTS ||--o{ COMMENTS : tiene
+
+    AUTHORS {
+        int id PK
+        varchar name
+        varchar email
+        text bio
+        timestamptz created_at
+    }
+    POSTS {
+        int id PK
+        varchar title
+        text content
+        int author_id FK
+        boolean published
+        timestamptz created_at
+    }
+    COMMENTS {
+        int id PK
+        text content
+        int post_id FK
+        int author_id FK
+        timestamptz created_at
+    }
+```
+
+Relaciones:
+
+- Un author puede tener muchos posts (`author_id` en posts, `ON DELETE CASCADE`)
+- Un author puede tener muchos comments (`author_id` en comments, `ON DELETE CASCADE`)
+- Un post puede tener muchos comments (`post_id` en comments, `ON DELETE CASCADE`)
+
 ## Tests
 
 ```bash
@@ -123,6 +163,8 @@ Cada consulta a la IA incluyó contexto explícito: stack (Node.js + Express + `
 | Deploy SSL        | Error `{error: ''}` en Railway; sin stack trace visible; `NODE_ENV=production`       | Hipótesis de SSL estricto en pg → `ssl: { rejectUnauthorized: false }` condicionado a producción | Se iteró el prompt con el error real. Se verificó con curl que la API respondía 200 en Railway     |
 | CORS              | Error "Failed to fetch" en Swagger UI al ejecutar contra Railway                     | Instalación de `cors` npm + `app.use(cors())` en `index.js`                                      | Se verificó con `curl -I` que el header `access-control-allow-origin: *` estaba presente           |
 | Auditoría         | Rúbrica completa + código fuente del proyecto + consigna del módulo                  | Identificación de 3 gaps: dotenv fuera de lugar, 23503 sin manejar, tests solo de authors        | Se aplicaron los 3 fixes, se corrió `npm test` y se hizo push a Railway confirmando deploy exitoso |
+
+Versión ampliada con el prompt textual, la respuesta completa de la IA y qué se usó/descartó en cada caso: [Uso de IA — Prompts detallados](https://app.notion.com/p/381745b6d1db810d94f5f3b892e1f207) (Notion).
 
 ### Licencia de uso
 
