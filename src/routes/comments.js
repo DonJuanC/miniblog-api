@@ -27,6 +27,10 @@ router.post("/", async (req, res) => {
     });
     res.status(201).json(comment);
   } catch (err) {
+    if (err.code === "23503")
+      return res
+        .status(400)
+        .json({ error: "El post_id o author_id no existe" });
     res.status(500).json({ error: err.message });
   }
 });

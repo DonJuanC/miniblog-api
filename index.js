@@ -18,8 +18,10 @@ const errorHandler = require("./src/middlewares/errorHandler");
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Servidor corriendo en puerto ${PORT}`);
+  });
+}
 
 module.exports = app;

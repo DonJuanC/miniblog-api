@@ -1,2 +1,4 @@
 node_modules/
 .env
+pg-init.js
+pg-init.js.bak
