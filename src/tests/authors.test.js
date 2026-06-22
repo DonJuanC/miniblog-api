@@ -29,6 +29,9 @@ describe("Authors API", () => {
       });
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("id");
+
+    // limpieza: borra el author creado en esta prueba
+    await pool.query("DELETE FROM authors WHERE id = $1", [res.body.id]);
   });
 
   it("DELETE /authors/:id - retorna 404 si no existe", async () => {
@@ -45,6 +48,11 @@ describe("Authors API", () => {
     const res = await request(app).get("/authors/99999");
     expect(res.statusCode).toBe(404);
   });
+
+  it("GET /authors/:id - retorna 400 si el id no es numérico", async () => {
+    const res = await request(app).get("/authors/abc");
+    expect(res.statusCode).toBe(400);
+  });
 });
 
 describe("Posts API", () => {
@@ -57,6 +65,9 @@ describe("Posts API", () => {
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("id");
     expect(res.body).toHaveProperty("author_id", 1);
+
+    // limpieza: borra el post creado en esta prueba
+    await pool.query("DELETE FROM posts WHERE id = $1", [res.body.id]);
   });
 
   it("POST /posts - retorna 400 si falta title", async () => {
@@ -73,6 +84,11 @@ describe("Posts API", () => {
       content: "Contenido",
       author_id: 99999,
     });
+    expect(res.statusCode).toBe(400);
+  });
+
+  it("GET /posts/:id - retorna 400 si el id no es numérico", async () => {
+    const res = await request(app).get("/posts/abc");
     expect(res.statusCode).toBe(400);
   });
 });

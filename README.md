@@ -66,6 +66,7 @@ node index.js
 | DELETE | /posts/:id              | Eliminar post      |
 | GET    | /posts/:id/comments     | Listar comentarios |
 | POST   | /posts/:id/comments     | Crear comentario   |
+| GET    | /api-docs               | Documentación Swagger UI |
 
 ## Diagrama entidad-relación
 
@@ -115,12 +116,14 @@ npm test
 
 ## Documentación OpenAPI
 
-El archivo `openapi.yaml` en la raíz describe todos los endpoints. Para visualizarlo e interactuar con la API en vivo:
+El archivo `openapi.yaml` en la raíz describe todos los endpoints y se sirve navegable directamente desde la API vía `swagger-ui-express`:
 
-1. Abre [editor.swagger.io](https://editor.swagger.io)
-2. Borra el contenido por defecto y pega el contenido de `openapi.yaml`
-3. Selecciona el servidor **Producción (Railway)** en el dropdown
-4. Usa **Try it out → Execute** en cualquier endpoint para hacer requests reales
+- **En producción:** https://miniblog-api-production-10ba.up.railway.app/api-docs
+- **En local:** http://localhost:3000/api-docs (con el servidor corriendo)
+
+Desde ahí podés usar **Try it out → Execute** en cualquier endpoint para hacer requests reales, sin pasos manuales.
+
+Alternativa sin levantar el servidor: pegar el contenido de `openapi.yaml` en [editor.swagger.io](https://editor.swagger.io).
 
 ## Deploy en Railway
 
@@ -163,6 +166,7 @@ Cada consulta a la IA incluyó contexto explícito: stack (Node.js + Express + `
 | Deploy SSL        | Error `{error: ''}` en Railway; sin stack trace visible; `NODE_ENV=production`       | Hipótesis de SSL estricto en pg → `ssl: { rejectUnauthorized: false }` condicionado a producción | Se iteró el prompt con el error real. Se verificó con curl que la API respondía 200 en Railway     |
 | CORS              | Error "Failed to fetch" en Swagger UI al ejecutar contra Railway                     | Instalación de `cors` npm + `app.use(cors())` en `index.js`                                      | Se verificó con `curl -I` que el header `access-control-allow-origin: *` estaba presente           |
 | Auditoría         | Rúbrica completa + código fuente del proyecto + consigna del módulo                  | Identificación de 3 gaps: dotenv fuera de lugar, 23503 sin manejar, tests solo de authors        | Se aplicaron los 3 fixes, se corrió `npm test` y se hizo push a Railway confirmando deploy exitoso |
+| Feedback del PI   | Devolución oficial del evaluador (ID no numérico → 500, errores no centralizados, validación débil, sin cleanup en tests, OpenAPI no navegable) | Middleware `validateId`, `errorHandler` centralizado con mapeo de códigos Postgres por constraint, validadores de tipo/formato en bodies, `swagger-ui-express` montado en `/api-docs` | Se revisó cada ruta contra los casos del feedback; se corrió `npm test` confirmando que los nuevos casos (`id` no numérico → 400) pasan junto con los existentes |
 
 Versión ampliada con el prompt textual, la respuesta completa de la IA y qué se usó/descartó en cada caso: [Uso de IA — Prompts detallados](https://app.notion.com/p/381745b6d1db810d94f5f3b892e1f207) (Notion).
 

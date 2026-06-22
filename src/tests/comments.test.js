@@ -21,6 +21,9 @@ describe("Comments API", () => {
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("id");
     expect(res.body).toHaveProperty("post_id", 1);
+
+    // limpieza: borra el comentario creado en esta prueba
+    await pool.query("DELETE FROM comments WHERE id = $1", [res.body.id]);
   });
 
   it("POST /posts/:id/comments - retorna 400 si falta content", async () => {
@@ -43,6 +46,11 @@ describe("Comments API", () => {
       content: "Comentario en post fantasma",
       author_id: 1,
     });
+    expect(res.statusCode).toBe(400);
+  });
+
+  it("GET /posts/:id/comments - retorna 400 si el id no es numérico", async () => {
+    const res = await request(app).get("/posts/abc/comments");
     expect(res.statusCode).toBe(400);
   });
 });
